@@ -1,6 +1,7 @@
 // calculatorReducer.js
 export const ACTIONS = {
   ADD_DIGIT: 'add-digit',
+  CHOOSE_OPERATION: 'choose-operation',
   CLEAR: 'clear',
   DELETE_DIGIT: 'delete-digit',
   EVALUATE: 'evaluate',
@@ -13,7 +14,7 @@ export function calculatorReducer(state, { type, payload }) {
         ...state,
         currentOperand: `${state.currentOperand || ''}${payload.digit}`,
       };
-      // other cases...
+    // handle other actions...
     default:
       return state;
   }
