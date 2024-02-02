@@ -5,27 +5,27 @@ import DigitButton from './DigitButton';
 
 import OperationButton from './OperationButton';
 
-import { calculatorReducer } from './calculatorReducer';
+import { calculatorReducer, ACTIONS } from './calculatorReducer';
 
 import './App.css';
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [state, dispatch] = useReducer(calculatorReducer, {
-    currentOperand: '',
-    previousOperand: '',
-    operation: null,
-  });
+  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+    calculatorReducer,
+    {},
+  );
 
   return (
     <div className="calculator-grid">
       <div className="output">
         <div className="previous-operand">
-          (state.previousOperand) (state.operation)
+          { previousOperand }
+          { operation }
         </div>
-        <div className="current-operand">(state.currentOperand)</div>
+        <div className="current-operand">{ currentOperand }</div>
       </div>
-      <button className="span-two">AC</button>
+      <button className="span-two" onClick={() => dispatch({ type: ACTIONS.CLEAR })}>AC</button>
       <button>DEL</button>
       <OperationButton operation="÷" dispatch={dispatch} />
 
