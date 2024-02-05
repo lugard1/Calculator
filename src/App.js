@@ -1,6 +1,8 @@
+/* eslint-disable default-case */
 /* eslint-disable react/no-unknown-property */
 
 import React, { useReducer } from 'react';
+// eslint-disable-next-line import/no-cycle
 import DigitButton from './DigitButton';
 
 import OperationButton from './OperationButton';
@@ -8,6 +10,28 @@ import OperationButton from './OperationButton';
 import { calculatorReducer, ACTIONS } from './calculatorReducer';
 
 import './App.css';
+
+export function evaluate({ currentOperand, previousOperand, operation }) {
+  const pre = parseFloat(previousOperand);
+  const current = parseFloat(currentOperand);
+  if (Number.isNaN(pre) || Number.isNaN(current)) return '';
+  let computation = '';
+  switch (operation) {
+    case '+':
+      computation = pre + current;
+      break;
+    case '-':
+      computation = pre - current;
+      break;
+    case '*':
+      computation = pre * current;
+      break;
+    case '÷':
+      computation = pre / current;
+      break;
+  }
+  return computation.toString();
+}
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -43,7 +67,7 @@ function App() {
       <OperationButton operation="-" dispatch={dispatch} />
       <DigitButton digit="." dispatch={dispatch} />
       <DigitButton digit="0" dispatch={dispatch} />
-      <button className="span-two">=</button>
+      <button className="span-two" onClick={() => dispatch({ type: ACTIONS.EVALUATE })}>=</button>
     </div>
   );
 }
