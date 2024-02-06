@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-cycle
-import { evaluate } from './App';
+import { evaluate } from './calculatorUtils';
 
 // calculatorReducer.js
 export const ACTIONS = {
@@ -58,6 +57,26 @@ export function calculatorReducer(state, { type, payload }) {
       };
     case ACTIONS.CLEAR:
       return {};
+    case ACTIONS.DELETE_DIGIT:
+      if (state.overwrite) {
+        return {
+          ...state,
+          overwrite: false,
+          currentOperand: null,
+        };
+      }
+      if (state.currentOperand === null) return state;
+      if (state.currentOperand.length === 1) {
+        return {
+          ...state,
+          currentOperand: null,
+        };
+      }
+
+      return {
+        ...state,
+        currentOperand: state.currentOperand.slice(0, -1),
+      };
 
     case ACTIONS.EVALUATE:
       if (
