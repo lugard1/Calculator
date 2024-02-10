@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import DigitButton from './DigitButton';
-import OperationButton from './OperationButton';
-import { calculatorReducer, ACTIONS } from './calculatorReducer';
+import DigitButton from './components/DigitButton';
+import OperationButton from './components/OperationButton';
+import { calculatorReducer, ACTIONS } from './components/calculatorReducer';
 
 import './App.css';
 
